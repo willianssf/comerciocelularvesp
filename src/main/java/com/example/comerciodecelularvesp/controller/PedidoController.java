@@ -3,6 +3,7 @@ package com.example.comerciodecelularvesp.controller;
 import com.example.comerciodecelularvesp.Mensagem;
 import com.example.comerciodecelularvesp.business.PedidoBiz;
 import com.example.comerciodecelularvesp.entities.Pedido;
+import com.example.comerciodecelularvesp.repositories.ClienteRepository;
 import com.example.comerciodecelularvesp.repositories.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,8 @@ public class PedidoController {
 
     @Autowired
     private PedidoRepository pedidoRepository;
+    @Autowired
+    private ClienteRepository clienteRepository;
 
     @GetMapping
     public List<Pedido> listar() {
@@ -32,7 +35,7 @@ public class PedidoController {
     @PostMapping
     public Mensagem incluir(@RequestBody Pedido pedido) {
         pedido.setId(0);
-        PedidoBiz pedidoBiz = new PedidoBiz(pedido.getId(), pedido, pedidoRepository);
+        PedidoBiz pedidoBiz = new PedidoBiz(pedido.getId(), pedido, pedidoRepository, clienteRepository);
         Mensagem msg = new Mensagem();
 
         if (pedidoBiz.isValid()) {
@@ -47,7 +50,7 @@ public class PedidoController {
 
     @PutMapping
     public Mensagem alterar(@RequestBody Pedido pedido) {
-        PedidoBiz pedidoBiz = new PedidoBiz(pedido.getId(), pedido, pedidoRepository);
+        PedidoBiz pedidoBiz = new PedidoBiz(pedido.getId(), pedido, pedidoRepository, clienteRepository);
         Mensagem msg = new Mensagem();
 
         if (pedidoBiz.isValid()) {
