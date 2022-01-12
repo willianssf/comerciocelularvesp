@@ -67,15 +67,15 @@ public class PedidoControllerTest {
             registrosAntes = pedidoController.listar().stream().count();
             Pedido pedido = new Pedido();
             pedido.setAtivo(true);
-            pedido.setModelo("GalaxyS20Fe");
+            pedido.setModelo("GalaxyS22");
             pedido.setId(0);
-            pedido.setValor(1900.50);
-            pedido.setData(Date.valueOf("2022-03-12"));
+            pedido.setValor(3000.50);
+            pedido.setData(Date.valueOf("2022-03-17"));
             pedido.setIdCliente(1);
             Mensagem msg = pedidoController.incluir(pedido);
 
             registrosDepois = pedidoController.listar().stream().count();
-            if (registrosDepois == registrosAntes +1){
+            if (registrosDepois > registrosAntes){
                 result = true;
             }else {
                 result = false;
