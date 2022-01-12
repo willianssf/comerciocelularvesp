@@ -83,7 +83,29 @@ public class PedidoBizTests {
 
         assertThat(result).isEqualTo(expected);
     }
-
-
+    @Test
+    public void isValidIncluindoTest() {
+        Boolean expected = true;
+        Pedido pedido = new Pedido();
+        pedido.setModelo("Iphone 16");
+        pedido.setValor(5000.00);
+        pedido.setIdCliente(2);
+        pedido.setData(Date.valueOf("2022-05-03"));
+        PedidoBiz pedidoBiz = new PedidoBiz(0, pedido, pedidoRepository, clienteRepository);
+        Boolean resultado = pedidoBiz.isValid();
+        assertThat(resultado).isEqualTo(expected);
+    }
+    @Test
+    public void isValidAlterandoTest() {
+        Boolean expected = true;
+        Pedido pedido = new Pedido();
+        pedido.setModelo("Iphone 16");
+        pedido.setValor(5000.00);
+        pedido.setIdCliente(2);
+        pedido.setData(Date.valueOf("2022-05-03"));
+        PedidoBiz pedidoBiz = new PedidoBiz(0, pedido, pedidoRepository, clienteRepository);
+        Boolean resultado = pedidoBiz.isValid();
+        assertThat(resultado).isEqualTo(expected);
+    }
 
 }
