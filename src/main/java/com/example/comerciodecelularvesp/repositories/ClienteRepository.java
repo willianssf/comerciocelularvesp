@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
-    List<Cliente> findByAtvio(Boolean ativo);
+    List<Cliente> findByAtivo(Boolean ativo);
 }
