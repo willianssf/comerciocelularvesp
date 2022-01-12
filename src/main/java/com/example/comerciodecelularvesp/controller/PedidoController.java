@@ -1,8 +1,5 @@
 package com.example.comerciodecelularvesp.controller;
 
-<<<<<<< HEAD
-public class PedidoController {
-=======
 import com.example.comerciodecelularvesp.entities.Pedido;
 import com.example.comerciodecelularvesp.repositories.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +19,7 @@ public class PedidoController {
 
     @GetMapping
     public List<Pedido> listar() {
-        List<Pedido> lista = pedidoRepository.findByAtvio(true);
+        List<Pedido> lista = pedidoRepository.findByAtivo(true);
         return lista;
     }
->>>>>>> c6714abbbfb1fe439f663f7adbd796b5a947f081
 }
