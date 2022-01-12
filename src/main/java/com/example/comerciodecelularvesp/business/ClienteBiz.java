@@ -38,9 +38,10 @@ public class ClienteBiz {
     }
 
     public Boolean nomeNaoEVazio (String nome){
-        Boolean resultado  = nome.matches("^[A-z]");
+        Boolean resultado  = !nome.isEmpty();
+
         if (!resultado){
-            erros.add("O Nome não pode ser vazio!");
+            erros.add("O email nao pode ser vazio!");
         }
         return resultado;
     }
@@ -54,7 +55,7 @@ public class ClienteBiz {
     }
 
     public Boolean emailNaoEVazio (String email){
-        Boolean resultado  = email.matches("^[A-z0-9]");
+        Boolean resultado  = !email.isEmpty();
         if (!resultado){
             erros.add("O email nao pode ser vazio!");
         }
