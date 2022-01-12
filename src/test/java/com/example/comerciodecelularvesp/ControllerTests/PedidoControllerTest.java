@@ -88,25 +88,27 @@ public class PedidoControllerTest {
     public void AlterarTest(){
         Boolean expected = true;
         Boolean result = false;
+        try {
+            Pedido pedido = pedidoController.buscar(2);
+            Pedido pedidop = pedidoController.buscar(2);
 
-        Pedido pedido = pedidoController.buscar(this.idPedidoTeste);
-        Pedido pedidoSemAlteracao = pedidoController.buscar(this.idPedidoTeste);
+            pedido.setModelo("Iphone 16");
+            pedido.setValor(5000.00);
+            pedido.setIdCliente(88888);
+            pedido.setData(Date.valueOf("2022-05-03"));
 
-        pedido.setAtivo(true);
-        pedido.setValor(1500.00);
-        pedido.setIdCliente(8888);
-        pedido.setModelo("GalaxyS21Fe");
-        pedido.setData(Date.valueOf("2022-02-15"));
+            pedidoController.alterar(pedido);
+            pedido = pedidoController.buscar(2);
 
-        pedidoController.alterar(pedido);
-        if (!pedido.equals(pedidoSemAlteracao)){
-            result = true;
+            if (pedido == pedidop) {
+                result = false;
+            } else {
+                result = true;
+            }
+        } catch (Exception ex) {
+            result = false;
         }
-
         assertThat(result).isEqualTo(expected);
     }
-
-
-
 
 }
