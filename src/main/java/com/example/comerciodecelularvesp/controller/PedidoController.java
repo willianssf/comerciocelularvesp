@@ -1,8 +1,5 @@
 package com.example.comerciodecelularvesp.controller;
-<<<<<<< HEAD
 
-=======
->>>>>>> dd6e8502aeacc55e2e76f99e6683681dfe3fd355
 import com.example.comerciodecelularvesp.Mensagem;
 import com.example.comerciodecelularvesp.business.PedidoBiz;
 import com.example.comerciodecelularvesp.entities.Pedido;
