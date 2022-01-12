@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("pedido")
 @CrossOrigin
@@ -58,6 +57,16 @@ public class PedidoController {
             msg.setErro(pedidoBiz.getErros());
             msg.setMensagem("Erro");
         }
+        return msg;
+    }
+
+    @DeleteMapping("/{id}")
+    public Mensagem deletar(@PathVariable int id) {
+        Pedido pedido = pedidoRepository.findById(id).get();
+        pedido.setAtivo(false);
+        pedidoRepository.saveAndFlush(pedido);
+        Mensagem msg = new Mensagem();
+        msg.setMensagem("Pedido deletado com sucesso.");
         return msg;
     }
 }
