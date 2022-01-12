@@ -30,8 +30,32 @@ public class PedidoController {
 
     @PostMapping
     public Mensagem incluir(@RequestBody Pedido pedido) {
+        pedido.setId(0);
         PedidoBiz pedidoBiz = new PedidoBiz(pedido.getId(), pedido, pedidoRepository);
         Mensagem msg = new Mensagem();
+
+        if (pedidoBiz.isValid()) {
+            pedidoRepository.saveAndFlush(pedido);
+            msg.setMensagem("Pedido cadastrado com sucesso.");
+        } else {
+            msg.setErro(pedidoBiz.getErros());
+            msg.setMensagem("Erro");
+        }
+        return msg;
+    }
+
+    @PutMapping
+    public Mensagem alterar(@RequestBody Pedido pedido) {
+        PedidoBiz pedidoBiz = new PedidoBiz(pedido.getId(), pedido, pedidoRepository);
+        Mensagem msg = new Mensagem();
+
+        if (pedidoBiz.isValid()) {
+            pedidoRepository.saveAndFlush(pedido);
+            msg.setMensagem("Pedido alterado com sucesso.");
+        } else {
+            msg.setErro(pedidoBiz.getErros());
+            msg.setMensagem("Erro");
+        }
         return msg;
     }
 }
