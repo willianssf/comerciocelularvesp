@@ -35,7 +35,7 @@ public class CelularController {
         return msg;
     }
     @PutMapping
-    Mensagem alterar(@RequestBody Celular celular){
+    public Mensagem alterar(@RequestBody Celular celular){
         celularRepository.saveAndFlush(celular);
         Mensagem msg = new Mensagem();
         msg.setMensagem("Alterado com sucesso!");
