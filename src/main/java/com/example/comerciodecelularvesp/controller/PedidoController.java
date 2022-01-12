@@ -1,73 +1,25 @@
 package com.example.comerciodecelularvesp.controller;
 
-import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import java.sql.Date;
+import com.example.comerciodecelularvesp.entities.Pedido;
+import com.example.comerciodecelularvesp.repositories.PedidoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Entity
-@Table(name = "pedido")
+import java.util.List;
+
+@RestController
+@RequestMapping("pedido")
+@CrossOrigin
 public class PedidoController {
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id", length = 10, nullable = false)
-    private Integer id;
-    @Column(name = "data", nullable = false, unique = true)
-    private Date data;
-    @Column(name = "valor", nullable = false, length = 18)
-    private Double valor;
-    @Column(name = "modelo", nullable = false, length = 80)
-    private String modelo;
-    @Column(name = "ativo", nullable = false)
-    private Boolean ativo;
-    @Column(name = "id_cliente", nullable = false, length = 10)
-    private Integer idCliente;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Date getData() {
-        return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
-    }
-
-    public Double getValor() {
-        return valor;
-    }
-
-    public void setValor(Double valor) {
-        this.valor = valor;
-    }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public Boolean getAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(Boolean ativo) {
-        this.ativo = ativo;
-    }
-
-    public Integer getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
+    @GetMapping
+    public List<Pedido> listar() {
+        List<Pedido> lista = pedidoRepository.findByAtvio(true);
+        return lista;
     }
 }
