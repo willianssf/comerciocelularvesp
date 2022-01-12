@@ -77,7 +77,7 @@ public class PedidoBiz {
     }
     //Modelo precisa começar com letra maiúscula
     public Boolean modeloComecaLetraMaiuscula (String modelo) {
-        Boolean resultado = modelo.matches("^[A-Z\s]{1}[A-zç0-9]{1,40}");
+        Boolean resultado = modelo.matches("^[A-Z\s]{1}[A-zç0-9\s]{0,40}");
         if (!resultado) {
             erros.add("O modelo precisa começar com a letra maiúscula.");
         }
