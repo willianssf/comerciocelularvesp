@@ -41,7 +41,7 @@ public class ClienteBiz {
         Boolean resultado  = !nome.isEmpty();
 
         if (!resultado){
-            erros.add("O email nao pode ser vazio!");
+            erros.add("O nome não pode ser vazio!");
         }
         return resultado;
     }

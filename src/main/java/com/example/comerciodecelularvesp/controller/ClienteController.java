@@ -1,6 +1,7 @@
 package com.example.comerciodecelularvesp.controller;
 
 import com.example.comerciodecelularvesp.Mensagem;
+import com.example.comerciodecelularvesp.business.ClienteBiz;
 import com.example.comerciodecelularvesp.entities.Cliente;
 import com.example.comerciodecelularvesp.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,30 +36,30 @@ public class ClienteController {
     @PostMapping
     public Mensagem incluir(@RequestBody Cliente cliente){
         cliente.setId(0);
-        //ClienteBiz clienteBiz = new ClienteBiz(comprador.getId(), comprador, compradorRepository);
+        ClienteBiz clienteBiz = new ClienteBiz(0, cliente);
         msg = new Mensagem();
 
-       // if (compradorBiz.isValid()) {
+        if (clienteBiz.isValid()) {
             clienteRepository.saveAndFlush(cliente);
             msg.setMensagem("Tudo certo, cliente cadastrado!");
-       /// } else {
-           // msg.setErro( compradorBiz.getErros() );
+        } else {
+            msg.setErro( clienteBiz.getErros() );
             msg.setMensagem("Erro");
-      //  }
+        }
         return msg;
 
     }
     @PutMapping
     public Mensagem alterar (@RequestBody Cliente cliente){
-       // CompradorBiz compradorBiz = new CompradorBiz(comprador.getId(), comprador, compradorRepository );
+        ClienteBiz clienteBiz = new ClienteBiz(1, cliente);
         msg = new Mensagem();
-       // if (compradorBiz.isValid()) {
+        if (clienteBiz.isValid()) {
             clienteRepository.saveAndFlush(cliente);
             msg.setMensagem("Tudo certo, cadastro do cliente alterado!");
-     //   } else {
-          //  msg.setErro( compradorBiz.getErros() );
+        } else {
+            msg.setErro( clienteBiz.getErros() );
             msg.setMensagem("Erro");
-     //   }
+        }
         return msg;
     }
 
