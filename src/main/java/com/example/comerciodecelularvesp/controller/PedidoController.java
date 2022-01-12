@@ -1,7 +1,10 @@
 package com.example.comerciodecelularvesp.controller;
 
+<<<<<<< HEAD
+=======
 import com.example.comerciodecelularvesp.Mensagem;
 import com.example.comerciodecelularvesp.business.PedidoBiz;
+>>>>>>> e03ed9406eb126ecc56e8e7a922ded748645af9e
 import com.example.comerciodecelularvesp.entities.Pedido;
 import com.example.comerciodecelularvesp.repositories.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +12,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("pedido")
 @CrossOrigin
 public class PedidoController {
+
     @Autowired
     private PedidoRepository pedidoRepository;
 
@@ -22,6 +27,8 @@ public class PedidoController {
         return lista;
     }
 
+<<<<<<< HEAD
+=======
     @GetMapping("/{id}")
     public Pedido buscar(@PathVariable int id) {
         Pedido pedido = pedidoRepository.findById(id).get();
@@ -58,4 +65,5 @@ public class PedidoController {
         }
         return msg;
     }
+>>>>>>> e03ed9406eb126ecc56e8e7a922ded748645af9e
 }
