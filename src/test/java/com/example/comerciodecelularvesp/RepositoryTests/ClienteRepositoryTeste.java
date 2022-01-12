@@ -1,4 +1,4 @@
-package com.example.comerciodecelularvesp.BusinessTest;
+package com.example.comerciodecelularvesp.RepositoryTests;
 
 import com.example.comerciodecelularvesp.entities.Cliente;
 import com.example.comerciodecelularvesp.repositories.ClienteRepository;
