@@ -1,5 +1,7 @@
 package com.example.comerciodecelularvesp.controller;
 
+import com.example.comerciodecelularvesp.Mensagem;
+import com.example.comerciodecelularvesp.business.PedidoBiz;
 import com.example.comerciodecelularvesp.entities.Pedido;
 import com.example.comerciodecelularvesp.repositories.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +26,12 @@ public class PedidoController {
     public Pedido buscar(@PathVariable int id) {
         Pedido pedido = pedidoRepository.findById(id).get();
         return pedido;
+    }
+
+    @PostMapping
+    public Mensagem incluir(@RequestBody Pedido pedido) {
+        PedidoBiz pedidoBiz = new PedidoBiz(pedido.getId(), pedido, pedidoRepository);
+        Mensagem msg = new Mensagem();
+        return msg;
     }
 }
