@@ -1,5 +1,8 @@
 package com.example.comerciodecelularvesp.controller;
+<<<<<<< HEAD
 
+=======
+>>>>>>> dd6e8502aeacc55e2e76f99e6683681dfe3fd355
 import com.example.comerciodecelularvesp.Mensagem;
 import com.example.comerciodecelularvesp.business.PedidoBiz;
 import com.example.comerciodecelularvesp.entities.Pedido;
@@ -20,7 +23,7 @@ public class PedidoController {
 
     @GetMapping
     public List<Pedido> listar() {
-        List<Pedido> lista = pedidoRepository.findByAtvio(true);
+        List<Pedido> lista = pedidoRepository.findByAtivo(true);
         return lista;
     }
 
@@ -32,8 +35,32 @@ public class PedidoController {
 
     @PostMapping
     public Mensagem incluir(@RequestBody Pedido pedido) {
+        pedido.setId(0);
         PedidoBiz pedidoBiz = new PedidoBiz(pedido.getId(), pedido, pedidoRepository);
         Mensagem msg = new Mensagem();
+
+        if (pedidoBiz.isValid()) {
+            pedidoRepository.saveAndFlush(pedido);
+            msg.setMensagem("Pedido cadastrado com sucesso.");
+        } else {
+            msg.setErro(pedidoBiz.getErros());
+            msg.setMensagem("Erro");
+        }
+        return msg;
+    }
+
+    @PutMapping
+    public Mensagem alterar(@RequestBody Pedido pedido) {
+        PedidoBiz pedidoBiz = new PedidoBiz(pedido.getId(), pedido, pedidoRepository);
+        Mensagem msg = new Mensagem();
+
+        if (pedidoBiz.isValid()) {
+            pedidoRepository.saveAndFlush(pedido);
+            msg.setMensagem("Pedido alterado com sucesso.");
+        } else {
+            msg.setErro(pedidoBiz.getErros());
+            msg.setMensagem("Erro");
+        }
         return msg;
     }
 }
