@@ -1,5 +1,4 @@
 package com.example.comerciodecelularvesp.controller;
-
 import com.example.comerciodecelularvesp.Mensagem;
 import com.example.comerciodecelularvesp.business.PedidoBiz;
 import com.example.comerciodecelularvesp.entities.Pedido;
@@ -19,7 +18,7 @@ public class PedidoController {
 
     @GetMapping
     public List<Pedido> listar() {
-        List<Pedido> lista = pedidoRepository.findByAtvio(true);
+        List<Pedido> lista = pedidoRepository.findByAtivo(true);
         return lista;
     }
 

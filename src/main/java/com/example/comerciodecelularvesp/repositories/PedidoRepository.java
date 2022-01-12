@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
-    List<Pedido> findByAtvio(Boolean ativo);
+    List<Pedido> findByAtivo(Boolean ativo);
 }
