@@ -1,6 +1,7 @@
 package com.example.comerciodecelularvesp.ControllerTests;
 import com.example.comerciodecelularvesp.Mensagem;
 import com.example.comerciodecelularvesp.controller.PedidoController;
+import com.example.comerciodecelularvesp.entities.Cliente;
 import com.example.comerciodecelularvesp.entities.Pedido;
 import com.example.comerciodecelularvesp.repositories.PedidoRepository;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.jar.Manifest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -101,6 +103,27 @@ public class PedidoControllerTest {
             pedido = pedidoController.buscar(2);
 
             if (pedido == pedidop) {
+                result = false;
+            } else {
+                result = true;
+            }
+        } catch (Exception ex) {
+            result = false;
+        }
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    public void DeletarTest() {
+        Boolean expected = true;
+        Boolean result = false;
+
+        try {
+            Pedido pedidoDelete = pedidoController.buscar(this.idPedidoTeste);
+            pedidoDelete.setAtivo(false);
+            pedidoController.deletar(pedidoDelete.getId());
+            List<Pedido> lista = pedidoRepository.findByAtivo(true);
+            if (lista.contains(pedidoDelete)) {
                 result = false;
             } else {
                 result = true;
