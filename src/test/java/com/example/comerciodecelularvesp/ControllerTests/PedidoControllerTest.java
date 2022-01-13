@@ -1,6 +1,7 @@
 package com.example.comerciodecelularvesp.ControllerTests;
 import com.example.comerciodecelularvesp.Mensagem;
 import com.example.comerciodecelularvesp.controller.PedidoController;
+import com.example.comerciodecelularvesp.entities.Cliente;
 import com.example.comerciodecelularvesp.entities.Pedido;
 import com.example.comerciodecelularvesp.repositories.PedidoRepository;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.jar.Manifest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -65,15 +67,15 @@ public class PedidoControllerTest {
             registrosAntes = pedidoController.listar().stream().count();
             Pedido pedido = new Pedido();
             pedido.setAtivo(true);
-            pedido.setModelo("GalaxyS20Fe");
+            pedido.setModelo("GalaxyS22");
             pedido.setId(0);
-            pedido.setValor(1900.50);
-            pedido.setData(Date.valueOf("2022-03-12"));
+            pedido.setValor(3000.50);
+            pedido.setData(Date.valueOf("2022-03-17"));
             pedido.setIdCliente(1);
             Mensagem msg = pedidoController.incluir(pedido);
 
             registrosDepois = pedidoController.listar().stream().count();
-            if (registrosDepois == registrosAntes +1){
+            if (registrosDepois > registrosAntes){
                 result = true;
             }else {
                 result = false;
@@ -85,9 +87,8 @@ public class PedidoControllerTest {
     }
 
     @Test
-    public void AlterarTest(){
+    public void AlterarTest() {
         Boolean expected = true;
-        Boolean result = true;
 
         Pedido pedido1 = new Pedido();
         pedido1 = pedidoController.buscar(2);
@@ -100,14 +101,53 @@ public class PedidoControllerTest {
 
         Mensagem msg = pedidoController.alterar(pedido1);
 
-        if (!msg.getErro().isEmpty()){
-            result = false;
-        }
+        if (!msg.getErro().isEmpty()) {
 
-        assertThat(result).isEqualTo(expected);
+            Boolean result = false;
+            try {
+                Pedido pedido = pedidoController.buscar(2);
+                Pedido pedidop = pedidoController.buscar(2);
+
+                pedido.setModelo("Iphone 16");
+                pedido.setValor(5000.00);
+                pedido.setIdCliente(88888);
+                pedido.setData(Date.valueOf("2022-05-03"));
+
+                pedidoController.alterar(pedido);
+                pedido = pedidoController.buscar(2);
+
+                if (pedido == pedidop) {
+                    result = false;
+                } else {
+                    result = true;
+                }
+            } catch (Exception ex) {
+                result = false;
+            }
+            assertThat(result).isEqualTo(expected);
+        }
+    }
+
+        @Test
+        public void DeletarTest() {
+             Boolean expected = true;
+            Boolean result = false;
+
+            try {
+                Pedido pedidoDelete = pedidoController.buscar(this.idPedidoTeste);
+                pedidoDelete.setAtivo(false);
+                pedidoController.deletar(pedidoDelete.getId());
+                List<Pedido> lista = pedidoRepository.findByAtivo(true);
+                if (lista.contains(pedidoDelete)) {
+                    result = false;
+                } else {
+                    result = true;
+                }
+            } catch (Exception ex) {
+                result = false;
+            }
+            assertThat(result).isEqualTo(expected);
+        }
     }
 
 
-
-
-}
