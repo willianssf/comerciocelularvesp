@@ -50,7 +50,7 @@ public class PedidoController {
 
     @PutMapping
     public Mensagem alterar(@RequestBody Pedido pedido) {
-        PedidoBiz pedidoBiz = new PedidoBiz(pedido.getId(), pedido, pedidoRepository, clienteRepository);
+        PedidoBiz pedidoBiz = new PedidoBiz(1, pedido, pedidoRepository, clienteRepository);
         Mensagem msg = new Mensagem();
 
         if (pedidoBiz.isValid()) {

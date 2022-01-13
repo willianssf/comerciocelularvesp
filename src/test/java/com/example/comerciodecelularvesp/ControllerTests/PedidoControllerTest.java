@@ -87,20 +87,21 @@ public class PedidoControllerTest {
     @Test
     public void AlterarTest(){
         Boolean expected = true;
-        Boolean result = false;
+        Boolean result = true;
 
-        Pedido pedido = pedidoController.buscar(this.idPedidoTeste);
-        Pedido pedidoSemAlteracao = pedidoController.buscar(this.idPedidoTeste);
+        Pedido pedido1 = new Pedido();
+        pedido1 = pedidoController.buscar(2);
 
-        pedido.setAtivo(true);
-        pedido.setValor(1500.00);
-        pedido.setIdCliente(8888);
-        pedido.setModelo("GalaxyS21Fe");
-        pedido.setData(Date.valueOf("2022-02-15"));
+        pedido1.setModelo("Xiaomi22");
+        pedido1.setValor(1800.0);
+        pedido1.setData(Date.valueOf("2022-11-12"));
 
-        pedidoController.alterar(pedido);
-        if (!pedido.equals(pedidoSemAlteracao)){
-            result = true;
+        Pedido pedidoSemAlteracao = pedidoController.buscar(2);
+
+        Mensagem msg = pedidoController.alterar(pedido1);
+
+        if (!msg.getErro().isEmpty()){
+            result = false;
         }
 
         assertThat(result).isEqualTo(expected);

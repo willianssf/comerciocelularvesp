@@ -15,6 +15,7 @@ public class PedidoBiz {
     private PedidoRepository pedidoRepository;
     private ClienteRepository clienteRepository;
     private Boolean incluindo;
+    private Boolean alterando;
     private List<String> erros;
 
     public List<String> getErros() {
@@ -27,6 +28,7 @@ public class PedidoBiz {
 
     public PedidoBiz (int modo, Pedido pedido, PedidoRepository pedidoRepository, ClienteRepository clienteRepository) {
         this.incluindo = modo==0;
+        this.alterando = modo!=0;
         this.pedido = pedido;
         this.pedidoRepository = pedidoRepository;
         this.clienteRepository = clienteRepository;

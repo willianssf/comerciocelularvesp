@@ -1,5 +1,6 @@
 package com.example.comerciodecelularvesp.ControllerTests;
 
+import com.example.comerciodecelularvesp.Mensagem;
 import com.example.comerciodecelularvesp.controller.ClienteController;
 import com.example.comerciodecelularvesp.entities.Cliente;
 import com.example.comerciodecelularvesp.repositories.ClienteRepository;
@@ -58,9 +59,16 @@ public class ClienteControllerTest {
             Cliente cliente = new Cliente();
             cliente.setNome("Cleude");
             cliente.setEmail("cleudinha@gmail.com");
-            cliente.setSaldo(1000.0);
+            cliente.setSaldo(1100.0);
             cliente.setAtivo(true);
-            clienteController.incluir(cliente);
+            Mensagem msg = clienteController.incluir(cliente);
+
+            System.out.println(msg.getMensagem());
+            if (!msg.getErro().isEmpty()){
+                for(String s: msg.getErro()){
+                    System.out.println(s);
+                }
+            }
 
             registros_depois = clienteController.listar().stream().count();
             if (registros_depois > registros_antes) {
@@ -79,18 +87,19 @@ public class ClienteControllerTest {
         Boolean result = false;
 
         try {
-            Cliente clientenovo = clienteController.buscar(this.idClienteTeste);
-            Cliente clienteantigo = clienteController.buscar(this.idClienteTeste);
-            clientenovo.setNome("Maristela Filho");
-            clientenovo.setEmail("mnfialho@hotmail.com");
-            clientenovo.setSaldo(684.0);
-            clienteController.alterar(clientenovo);
-            clientenovo = clienteController.buscar(this.idClienteTeste);
-            if (clientenovo == clienteantigo) {
-                result = false;
-            } else {
-                result = true;
-            }
+            Cliente cliente = clienteController.buscar(this.idClienteTeste);
+            cliente.setNome("Maristela Filho");
+            cliente.setEmail("mnfialho@hotmail.com");
+            cliente.setSaldo(684.0);
+            cliente.setAtivo(true);
+            Mensagem msg = clienteController.alterar(cliente);
+            System.out.println(msg.getMensagem());
+            Cliente clientealterado = clienteController.buscar(this.idClienteTeste);
+
+            result = clienteEquals(cliente, clientealterado);
+
+            System.out.println(result);
+
         } catch (Exception ex) {
             result = false;
         }
@@ -115,6 +124,24 @@ public class ClienteControllerTest {
             result = false;
         }
         assertThat(result).isEqualTo(expected);
+    }
+
+
+    public boolean clienteEquals( Cliente origem, Cliente destino){
+
+
+        System.out.println(origem.getNome() + " =>" + destino.getNome() );
+        System.out.println(origem.getAtivo() + " =>" + destino.getAtivo() );
+        System.out.println(origem.getEmail() + " =>" + destino.getEmail() );
+        System.out.println(origem.getSaldo() + " =>" + destino.getSaldo() );
+
+
+        return origem.getNome().equals(destino.getNome()) &&
+                origem.getAtivo().equals(destino.getAtivo()) &&
+                origem.getEmail().equals(destino.getEmail()) &&
+                origem.getSaldo().equals(destino.getSaldo());
+
+
     }
 
 

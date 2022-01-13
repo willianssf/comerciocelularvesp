@@ -2,6 +2,7 @@ package com.example.comerciodecelularvesp.entities;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "pedido")
@@ -69,4 +70,5 @@ public class Pedido {
     public void setIdCliente(Integer idCliente) {
         this.idCliente = idCliente;
     }
+
 }
