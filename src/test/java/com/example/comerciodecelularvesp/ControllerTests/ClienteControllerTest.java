@@ -90,7 +90,7 @@ public class ClienteControllerTest {
             Cliente cliente = clienteController.buscar(this.idClienteTeste);
             cliente.setNome("Maristela Filho");
             cliente.setEmail("mnfialho@hotmail.com");
-            cliente.setSaldo(684.0);
+            cliente.setSaldo(100.0);
             cliente.setAtivo(true);
             Mensagem msg = clienteController.alterar(cliente);
             System.out.println(msg.getMensagem());
@@ -130,10 +130,10 @@ public class ClienteControllerTest {
     public boolean clienteEquals( Cliente origem, Cliente destino){
 
 
-        System.out.println(origem.getNome() + " =>" + destino.getNome() );
+        /*System.out.println(origem.getNome() + " =>" + destino.getNome() );
         System.out.println(origem.getAtivo() + " =>" + destino.getAtivo() );
         System.out.println(origem.getEmail() + " =>" + destino.getEmail() );
-        System.out.println(origem.getSaldo() + " =>" + destino.getSaldo() );
+        System.out.println(origem.getSaldo() + " =>" + destino.getSaldo() );*/
 
 
         return origem.getNome().equals(destino.getNome()) &&

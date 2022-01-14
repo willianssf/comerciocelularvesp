@@ -89,44 +89,32 @@ public class PedidoControllerTest {
     @Test
     public void AlterarTest() {
         Boolean expected = true;
+        Boolean result = false;
+        try {
+            Pedido pedido1 = new Pedido();
+            pedido1 = pedidoController.buscar(1);
 
-        Pedido pedido1 = new Pedido();
-        pedido1 = pedidoController.buscar(2);
+            pedido1.setModelo("Xiaomi887");
+            pedido1.setValor(100.0);
+            pedido1.setData(Date.valueOf("2022-11-12"));
+            pedido1.setIdCliente(10);
 
-        pedido1.setModelo("Xiaomi22");
-        pedido1.setValor(1800.0);
-        pedido1.setData(Date.valueOf("2022-11-12"));
+            Pedido pedidoSemAlteracao = pedidoController.buscar(2);
 
-        Pedido pedidoSemAlteracao = pedidoController.buscar(2);
+            Mensagem msg = pedidoController.alterar(pedido1);
 
-        Mensagem msg = pedidoController.alterar(pedido1);
-
-        if (!msg.getErro().isEmpty()) {
-
-            Boolean result = false;
-            try {
-                Pedido pedido = pedidoController.buscar(2);
-                Pedido pedidop = pedidoController.buscar(2);
-
-                pedido.setModelo("Iphone 16");
-                pedido.setValor(5000.00);
-                pedido.setIdCliente(88888);
-                pedido.setData(Date.valueOf("2022-05-03"));
-
-                pedidoController.alterar(pedido);
-                pedido = pedidoController.buscar(2);
-
-                if (pedido == pedidop) {
-                    result = false;
-                } else {
-                    result = true;
-                }
-            } catch (Exception ex) {
+            if (!msg.getErro().isEmpty()) {
                 result = false;
+            }else{
+                result = true;
             }
-            assertThat(result).isEqualTo(expected);
+
+        } catch (Exception ex) {
+                result = false;
         }
-    }
+        assertThat(result).isEqualTo(expected);
+        }
+
 
         @Test
         public void DeletarTest() {
